@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Email & password validation</title>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		// set initially button state hidden
+		$("#btn").hide();
+		// use keyup event on email field
+		$("#email").keyup(function(){
+			if(validateEmail()){
+				// if the email is validated
+				// set input email border green
+				$("#email").css("border","2px solid green");
+				// and set label 
+				$("#emailMsg").html("<p class='text-success'>Validated</p>");
+			}else{
+				// if the email is not validated
+				// set border red
+				$("#email").css("border","2px solid red");
+				$("#emailMsg").html("<p class='text-danger'>Un-validated</p>");
+			}
+			buttonState();
+		});
+		// use keyup event on password
+		$("#pass").keyup(function(){
+			// check
+			if(validatePassword()){
+				// set input password border green
+				$("#pass").css("border","2px solid green");
+				//set passMsg 
+				$("#passMsg").html("<p class='text-success'>Password validated</p>");
+			}else{
+					// set input password border red
+				$("#pass").css("border","2px solid red");
+				//set passMsg 
+				$("#passMsg").html("<p class='text-danger'>Password not valid</p>");
+			}
+			buttonState();
+		});
+	});
+
+	function buttonState(){
+		if(validateEmail() && validatePassword()){
+			// if the both email and password are validate
+			// then button should show visible
+			$("#btn").show();
+		}else{
+			// if both email and pasword are not validated
+			// button state should hidden
+			$("#btn").hide();
+		}
+	}
+	function validateEmail(){
+		// get value of input email
+		var email=$("#email").val();
+		// use reular expression
+		 var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+		 if(reg.test(email)){
+		 	return true;
+		 }else{
+		 	return false;
+		 }
+
+	}
+	function validatePassword(){
+		//get input password value
+		var pass=$("#pass").val();
+		// check it s length
+		if(pass.length > 7){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+</script>
+<body class="bg-primary">
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4 border shadow-sm bg-light" style="margin-top:8%;padding:10px;">
+			<div class="form-group">
+				<label>Enter email:</label>
+				<input type="email" class="form-control" id="email" placeholder="Enter email" autocomplete="off" name="">
+				<span id="emailMsg"></span>
+			</div>
+
+			<div class="form-group">
+				<label>Enter password:</label>
+				<input type="password" class="form-control" id="pass" placeholder="Enter password" autocomplete="off" name="">
+				<span id="passMsg"></span>
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-primary btn-block" id="btn">Submit</button>
+			</div>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</div>
+</body>
+</html>
